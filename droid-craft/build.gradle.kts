@@ -80,5 +80,5 @@ dependencies {
     implementation("com.github.TimofeyMaryin:decrypt-helper:1.0.1")
     implementation("com.github.TimofeyMaryin:ReleaseCustomView:1.0.1")
     implementation("com.github.TimofeyMaryin:signal-extension:1.0.0-alpha")
-    implementation("com.github.TimofeyMaryin:flyer-extension:1.0.0-alpha")
+    implementation("com.github.TimofeyMaryin:flyer-extension:1.0.1-alpha")
 }

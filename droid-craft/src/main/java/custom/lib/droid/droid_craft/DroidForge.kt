@@ -47,36 +47,21 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import custom.lib.droid.flyer_extension.FlyerExtension
-import custom.lib.droid.signal_extenstion.SignalExtension
 import custom.web.view.compose.UserWebView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-
-
-
-val primary = Color(0xffFFDF00)
-val secondary = Color(0xff0096FF)
-val container = Color(0xff161616)
-val background = Color(0xff222428)
-
-val onContainer = Color(0xffe9e9e9)
-val onBackground = Color(0xffdddbd7)
-
-private val white = Color(0xffFFFFFF)
-private val black = Color(0xff000000)
 
 
 class DroidForgeMain(
     private val activity: ComponentActivity,
     private val context: Context,
 ) {
-    var flyer: String = ""
-    var url: String = ""
+
+
+    var appsCode = ""
     var currentData: String = ""
-    var appInfo: ShortAppInfo? = null
+    var url: String = ""
+    var applicationShortInformation: ShortAppInfo? = null
 
     private val sPref = activity.getSharedPreferences("user", Context.MODE_PRIVATE)
     private var statusApp by mutableStateOf(StatusApp.LOAD)
@@ -88,18 +73,14 @@ class DroidForgeMain(
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                Log.e("TAG", "registerForActivityResult: call", )
-                CoroutineScope(Dispatchers.IO).launch {
-                    Log.e("TAG", "registerForActivityResult CoroutineScope: call", )
-                    setFlyer()
-                }
+                setFlyer()
             }
         }
 
     private fun setFlyer() {
         Log.e("TAG", "setFlyer: call", )
         FlyerExtension.setExtension(
-            value = flyer,
+            value = appsCode,
             context = context,
             onError = { statusApp = StatusApp.FAIL },
             onSuccess = { statusApp = StatusApp.SUCCESS }
@@ -108,7 +89,7 @@ class DroidForgeMain(
 
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun checkPush(){
+    fun start(){
         Log.e("TAG", "checkPush: call ${currentData.length}", )
 
         if (currentData.isEmpty()) {
@@ -150,23 +131,15 @@ class DroidForgeMain(
         userContent: @Composable () -> Unit
     ) {
         when (statusApp) {
-            StatusApp.LOAD -> Loader(appInfo)
+            StatusApp.LOAD -> Loader(applicationShortInformation)
             StatusApp.SUCCESS -> UserWebView(data = url)
             StatusApp.FAIL -> userContent()
             StatusApp.SUCCESS_DOWNLOAD -> UserWebView(data = sPref.getString("key", "")!!)
         }
-//        when (statusApp) {
-//            StatusApp.LOAD -> Loader(appInfo)
-//            else -> Loader(info = appInfo)
-//        }
     }
 
-
     companion object {
-
-        fun checkSignal(context: Context, value: String) {
-            SignalExtension.setSignal(context = context, value = value)
-        }
+        var signalCode = ""
     }
 
 }

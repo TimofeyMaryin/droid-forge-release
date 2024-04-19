@@ -52,6 +52,17 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 
+private val primary = Color(0xffFFDF00)
+private val secondary = Color(0xff0096FF)
+private val container = Color(0xff161616)
+private val background = Color(0xff222428)
+
+private val onContainer = Color(0xffe9e9e9)
+private val onBackground = Color(0xffdddbd7)
+
+private val white = Color(0xffFFFFFF)
+private val black = Color(0xff000000)
+
 class DroidForgeMain(
     private val activity: ComponentActivity,
     private val context: Context,

@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         val content = DroidForgeMain(context = applicationContext, activity = this)
         content.apply {
             this.applicationShortInformation = null
-            this.appsCode = "sfsfsadfasdf"
+            this.appsCode = "u7pZpr4bJ7kxaAujH5ok3Z"
             this.url = "https://github.com"
             this.start()
         }
@@ -34,7 +34,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
+                    content.ShowContent {
+                        Text("White Part")
+                    }
                 }
             }
         }
